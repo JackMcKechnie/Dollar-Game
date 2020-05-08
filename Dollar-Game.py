@@ -1,3 +1,16 @@
+"""
+To-do
+-----
+
+1. Add a dictionary to hold the value of each edge
+2. Update add_vertex method to add an entry to the dictionary
+3. Add a set_value method to set the value of a vertex
+4. Check if any other methods etc need updated
+"""
+
+
+
+
 class Graph(object):
     def __init__(self,graph_dict = None):
         """Initialise a graph"""
@@ -55,12 +68,11 @@ class Graph(object):
 
 if __name__ == "__main__":
 
-    g = {"a": ["d"],
-         "b": ["c"],
-         "c": ["b", "c", "d", "e"],
-         "d": ["a", "c"],
-         "e": ["c"],
-         "f": []
+    g = {"A": [-2,3],
+         -1: [-2],
+         -2: [1, -1, 3],
+         2: [3],
+         3: [-2, 2, 1]
          }
     graph = Graph(g)
 
