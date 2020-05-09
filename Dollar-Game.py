@@ -2,9 +2,9 @@
 To-do
 -----
 
-1. Add a dictionary to hold the value of each edge
-2. Update add_vertex method to add an entry to the dictionary
-3. Add a set_value method to set the value of a vertex
+1. Add a dictionary to hold the value of each edge ✓
+2. Update add_vertex method to add an entry to the dictionary ✓
+3. Add a set_value method to set the value of a vertex ✓
 4. Check if any other methods etc need updated
 """
 
@@ -12,11 +12,13 @@ To-do
 
 
 class Graph(object):
-    def __init__(self,graph_dict = None):
+    def __init__(self   , graph_dict = None):
         """Initialise a graph"""
         if graph_dict == None:
             graph_dict = {}
         self.graph_dict = graph_dict
+
+        self.value_dict = {}
 
     def vertices(self):
         """Getter that returns the
@@ -28,12 +30,13 @@ class Graph(object):
         edges of the graph"""
         return self.__generate_edges()
 
-    def add_vertex(self, vertex):
+    def add_vertex(self, vertex, value):
         """Adds the given vertex
         by adding a new entry to the
         graph_dict: {vertex:[]}"""
         if vertex not in self.graph_dict:
             self.graph_dict[vertex] = []
+            self.value_dict[vertex] = value
 
     def add_edge(self, edge):
         """Adds an edge between
@@ -44,6 +47,10 @@ class Graph(object):
             self.graph_dict[vertex1].append(vertex2)
         else:
             self.graph_dict[vertex1] = [vertex2]
+
+    def set_vertex_value(self, vertex, value):
+        """Sets the value of a vertex"""
+        self.value_dict[vertex] = value
 
     def __generate_edges(self):
         """Static method to
@@ -58,26 +65,28 @@ class Graph(object):
         return edges
 
     def __str__(self):
-        result = "vertices:"
-        for key in self.__graph_dict:
-            result += str(key) + " "
-        result += "\nedges"
+        result = "Vertices:"
+        for key in self.graph_dict:
+            result += str(key) + "(" + str(self.value_dict[key]) + ") "
+        result += "\nEdges: "
         for edge in self.__generate_edges():
             result += str(edge) + " "
         return result
 
+
 if __name__ == "__main__":
 
-    g = {"A": [-2,3],
-         -1: [-2],
-         -2: [1, -1, 3],
-         2: [3],
-         3: [-2, 2, 1]
+    g = {"A": ["C"],
+         "B": ["C"],
+         "C": ["A", "B"]
          }
     graph = Graph(g)
+    graph.set_vertex_value("A", 1)
+    graph.set_vertex_value("B", 3)
+    graph.set_vertex_value("C", 2)
 
-    print("Graph:")
-    print(str(g))
+    print(str(graph))
+
 
 
 
