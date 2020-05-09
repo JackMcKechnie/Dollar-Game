@@ -64,6 +64,12 @@ class Graph(object):
                     edges.append({vertex, neighbor})
         return edges
 
+    def transfer(self, vertex1, vertex2):
+        """Transfers 1 unit from vertex1
+        to vertex2"""
+        self.value_dict[vertex1] -= 1
+        self.value_dict[vertex2] += 1
+
     def __str__(self):
         result = "Vertices:"
         for key in self.graph_dict:
