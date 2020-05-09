@@ -2,14 +2,12 @@
 To-do
 -----
 
-1. Add a dictionary to hold the value of each edge ✓
-2. Update add_vertex method to add an entry to the dictionary ✓
-3. Add a set_value method to set the value of a vertex ✓
-4. Check if any other methods etc need updated
+1. Generate random winnable graph
+    - Money on the board >= genus(#edges - #vertices + 1)
 """
 
 
-
+import random
 
 class Graph(object):
     def __init__(self   , graph_dict = None):
@@ -86,6 +84,28 @@ class Graph(object):
         return result
 
 
+def generate_winnable_graph():
+    """Static method that generates
+    a graph where it is possible to win"""
+    # Generate a random number from 1-26
+    vertex_num = random.randrange(1, 27)
+    # Dictionary to hold the vertices
+    vertices = {}
+    # Add vertex_num vertices
+    for i in range(vertex_num):
+        vertices[chr(i+65)] = []
+
+    #Add edges
+    for i in range(vertex_num):
+        vertices[chr(i+65)] = [chr(i+66)]
+    vertices[chr(vertex_num+65)] = [chr(65)]
+
+    out_graph = Graph(vertices)
+
+    #Generate values for each vertice
+    for i in range(vertex_num):
+        out_graph.set_vertex_value(vertices[chr(i + 65)], i)
+
 if __name__ == "__main__":
 
     g = {"A": ["C"],
@@ -97,7 +117,8 @@ if __name__ == "__main__":
     graph.set_vertex_value("B", 0)
     graph.set_vertex_value("C", 0)
 
-    print(graph.game_won())
+    generate_winnable_graph()
+
 
 
 
