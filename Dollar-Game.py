@@ -70,6 +70,12 @@ class Graph(object):
         self.value_dict[vertex1] -= 1
         self.value_dict[vertex2] += 1
 
+    def game_won(self):
+        for value in self.value_dict:
+            if self.value_dict[value] < 0:
+                return False
+        return True
+
     def __str__(self):
         result = "Vertices:"
         for key in self.graph_dict:
@@ -87,11 +93,11 @@ if __name__ == "__main__":
          "C": ["A", "B"]
          }
     graph = Graph(g)
-    graph.set_vertex_value("A", 1)
-    graph.set_vertex_value("B", 3)
-    graph.set_vertex_value("C", 2)
+    graph.set_vertex_value("A", -1)
+    graph.set_vertex_value("B", 0)
+    graph.set_vertex_value("C", 0)
 
-    print(str(graph))
+    print(graph.game_won())
 
 
 
