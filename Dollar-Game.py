@@ -1,4 +1,13 @@
+"""
+To-Do
+
+1. Borrowing binge strategy implementation
+
+"""
+
 import random
+import time
+
 
 class Graph(object):
     def __init__(self   , graph_dict = None):
@@ -65,6 +74,21 @@ class Graph(object):
                 return False
         return True
 
+    def borrowing_binge(self):
+        """ Whilst there are vertices in debt
+        (game not won) make a random transfer"""
+        move_count = 0
+        while not self.game_won():
+            borrower = random.choice(list(self.graph_dict.keys()))
+            if self.value_dict[borrower] >= 0:
+                print("Game not won")
+                self.transfer(borrower, random.choice(list(self.graph_dict.keys())))
+                move_count += 1
+        print("Game won")
+        print("Number of moves: " + str(move_count))
+
+
+
     def __str__(self):
         result = "Vertices:"
         for key in self.graph_dict:
@@ -81,7 +105,7 @@ def generate_winnable_graph():
     There is always a surplus of +4 to a
     graph of genus 2"""
     # Generate a random number from 1-26
-    vertex_num = random.randrange(1, 27)
+    vertex_num = random.randrange(2, 27)
     # Dictionary to hold the vertices
     vertices = {}
     # Add vertex_num vertices
@@ -113,6 +137,11 @@ if __name__ == "__main__":
 
     graph = generate_winnable_graph()
 
+    tic = time.perf_counter()
+    graph.borrowing_binge()
+    toc = time.perf_counter()
+
+    print(f"Game won in {toc - tic:0.4f} seconds")
 
 
 
