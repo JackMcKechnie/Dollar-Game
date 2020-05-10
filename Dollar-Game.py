@@ -1,12 +1,3 @@
-"""
-To-do
------
-
-1. Generate random winnable graph
-    - Money on the board >= genus(#edges - #vertices + 1)
-"""
-
-
 import random
 
 class Graph(object):
