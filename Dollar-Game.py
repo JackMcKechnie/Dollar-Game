@@ -86,7 +86,9 @@ class Graph(object):
 
 def generate_winnable_graph():
     """Static method that generates
-    a graph where it is possible to win"""
+    a graph where it is possible to win.
+    There is always a surplus of +4 to a
+    graph of genus 2"""
     # Generate a random number from 1-26
     vertex_num = random.randrange(1, 27)
     # Dictionary to hold the vertices
@@ -95,29 +97,32 @@ def generate_winnable_graph():
     for i in range(vertex_num):
         vertices[chr(i+65)] = []
 
-    #Add edges
-    for i in range(vertex_num):
+    # Add edges
+    # Connect each edge to the one next to it. The last loops round to the first
+    for i in range(vertex_num-1):
         vertices[chr(i+65)] = [chr(i+66)]
-    vertices[chr(vertex_num+65)] = [chr(65)]
+    # Loop round so the last edge connects to the first
+    vertices[str(chr(vertex_num+64))] = [chr(65)]
+    # Update the vertices list of the first edge to include the last edge
+    vertices["A"].append(str(chr(vertex_num+64)))
 
     out_graph = Graph(vertices)
 
-    #Generate values for each vertice
-    for i in range(vertex_num):
-        out_graph.set_vertex_value(vertices[chr(i + 65)], i)
+    # Generate values for each vertex
+    # Set each vertex value to -1 and compensate to give overall surplus of +4
+    # Since the graph has a genus of 2 then the board is always winnable
+    for i in range(vertex_num-1):
+        out_graph.set_vertex_value(str(chr(i + 65)), -1)
+    out_graph.set_vertex_value(str(chr(vertex_num + 64)), vertex_num+3)
+
+    return out_graph
+
 
 if __name__ == "__main__":
 
-    g = {"A": ["C"],
-         "B": ["C"],
-         "C": ["A", "B"]
-         }
-    graph = Graph(g)
-    graph.set_vertex_value("A", -1)
-    graph.set_vertex_value("B", 0)
-    graph.set_vertex_value("C", 0)
+    graph = generate_winnable_graph()
 
-    generate_winnable_graph()
+
 
 
 
